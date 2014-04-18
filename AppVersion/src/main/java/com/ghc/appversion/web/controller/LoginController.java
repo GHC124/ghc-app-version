@@ -11,13 +11,7 @@ import com.ghc.appversion.web.form.Message;
 @RequestMapping("/login")
 @Controller
 public class LoginController extends AbstractController {
-	
-	public String loginForm(Model model, Locale locale){
-		return "login";
-	}
-	
-	
-	
+			
 	@RequestMapping("/loginfail")
 	public String loginFail(Model model, Locale locale){
 		model.addAttribute(

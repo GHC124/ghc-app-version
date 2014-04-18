@@ -79,4 +79,7 @@ http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
         <filter-name>springSecurityFilterChain</filter-name> 
         <url-pattern>/*</url-pattern> 
     </filter-mapping>
+    <welcome-file-list>
+        <welcome-file>login.jspx</welcome-file>
+    </welcome-file-list>
 </web-app>
