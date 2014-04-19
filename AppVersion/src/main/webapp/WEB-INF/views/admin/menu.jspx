@@ -5,6 +5,19 @@
 	xmlns:sec="http://www.springframework.org/security/tags">
 	<jsp:directive.page contentType="text/html;charset=UTF-8" />
 	<jsp:output omit-xml-declaration="yes" />
-	<spring:message code="menu_header_text" var="menuHeaderText" />
-	<h3>${menuHeaderText}</h3>		
+	<spring:message code="label_logout" var="labelLogout"/> 
+    <spring:message code="label_welcome" var="labelWelcome"/>
+    <spring:message code="menu_admin_user" var="menuUser"/>  
+    <spring:url var="logoutUrl" value="/j_spring_security_logout" />
+    <spring:url var="userUrl" value="/admin/users" />
+    
+    <div class="menu_content">
+    	<a href="${userUrl}">${menuUser}</a>
+    </div>    
+	<div class="user_info"> 
+        <sec:authorize access="isAuthenticated()">${labelWelcome}  
+            <sec:authentication property="principal.username" /> 
+             | <a href="${logoutUrl}">${labelLogout}</a> 
+        </sec:authorize>                     
+    </div>	
 </div>

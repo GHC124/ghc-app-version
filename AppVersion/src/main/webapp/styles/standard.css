@@ -1,7 +1,5 @@
 @import url("messages/messages.css");
 
-/* main elements */
-
 body,div,td {
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 12px;
@@ -11,139 +9,6 @@ body,div,td {
 body {
 	background-color: #fff;
 	text-align: center;
-}
-
-#header {
-	margin-bottom: 1em;
-}
-
-#appname {
-    float: left;
-    margin: 5;
-    padding: 5px 0px;
-    font-size: 150%;
-    vertical-align: middle;
-}
-
-#banner {
-    float: left;
-    margin: 5;
-    padding: 5px 10px;
-    font-size: 150%;
-    vertical-align: middle;
-}
-    
-#userinfo {
-    float: right;
-    margin: 5;
-    padding: 5px 5px;
-}
-
-#language {
-    margin: 5;
-    padding: 5px 5px;
-} 
-
-#headerWrapper {
-    width:950px;
-    min-width: 950px;
-    max-width: 950px;
-    margin-right: auto;
-    margin-left: auto;
-
-    /* fix max-width incompatibility in IE6 */
-    width:expression(document.body.clientWidth > 950? "950px": "auto" );
-    
-    overflow:hidden;
-    display:block;
-}
-
-#wrapper {
-	width:950px;
-	min-width: 950px;
-	max-width: 950px;
-	margin-right: auto;
-	margin-left: auto;
-
-	/* fix max-width incompatibility in IE6 */
-	width:expression(document.body.clientWidth > 950? "950px": "auto" );
-	
-	overflow:hidden;
-	display:block;
-}
-
-/* header and footer elements */
-
-#main {
-	overflow:hidden;
-	display:box;
-}
-
-#menu {
-	position:relative;
-	float:left;  	
-	left:0px;
-	width:30%;
-	margin-right:15px;
-}
-
-#menu ul{
-	list-style: none;
-	margin: 0;
-	padding: 0;
-}
-
-#menu ul li{
-	padding: 0px;
-}
-
-
-#menu a, #menu h2 {
-	display: block;
-	margin: 0;
-	padding: 2px 6px;
-	color:#FFFFFF;
-}
-
-#menu h2 {
-	color: #fff;
-	background: #648C1D;
-	text-transform: uppercase;
-	font-weight:bold;
-	font-size: 12px;
-}
-
-#menu a {
-	color: #666666;
-	background: #efefef;
-	text-decoration: none;
-	padding: 2px 12px;
-}
-
-#menu a:hover {
-	color: #648C1D;
-	background: #fff;
-}
-
-#footer {
-	background:#fff;
-	border:none;
-	margin-top:15px;
-	border-top:1px solid #999999;
-}
-
-#footer .new {
-	float:left;
-}
-
-#footer a:link {color: #7db223;}
-
-.quicklinks {
-	clear:both; 
-	padding-bottom: 15px
-}
-.quicklinks span {
-	float: right;
 }
 
 table.navigation {
@@ -183,13 +48,7 @@ div .box {
 	display:block;
 	margin-left:105px;
 }
-
-/* menu elements*/
-
-a.menu, a.menu:link, a.menu:visited {display:block; width:150px; height:25px;} 
 	
-/* text styles */
-
 h1,h2,h3 {
 	font-family: Helvetica, sans-serif;
 	color: #7db223;
@@ -216,13 +75,6 @@ h4 {
 	line-height: 20px;
 }
 
-.errors {
-	color: red;
-	font-weight: bold;
-	display: block;
-	margin-left: 105px;
-}
-
 a {
 	text-decoration: underline;
 	font-size: 12px;
@@ -231,14 +83,6 @@ a {
 a img {
 	border: 0 none;
 	vertical-align: middle;
-}
-
-tr:nth-child(odd) {
-	background-color: #FFFFFF;
-}
-
-tr:nth-child(even) {
-	background-color: #EFEFEF;
 }
 
 a:link {
@@ -266,50 +110,6 @@ ul li {
 	margin:0 0 0.25em 0;
 	padding:0;
 }
-/* table elements */
-
-table {
-	background: #EEEEEE;
-	margin: 2px 0 0 0;
-	border: 1px solid #BBBBBB;
-	border-collapse: collapse;
-	width: 100%
-}
-
-table table {
-	margin: -5px 0;
-	border: 0px solid #e0e7d3;
-	width: 100%;
-}
-
-table td,table th {
-	padding: 2px;
-	border: 1px solid #CCCCCC;
-}
-
-table td form {
-	text-align:center;
-	vertical-align: middle;
-	margin: 0px;
-}
-
-table th {
-	font-size: 0.9em;
-	text-align: left;
-	font-weight: bold;
-	color: #FFF;
-	background: #999;
-}
-
-table thead {
-	font-weight: bold;
-	font-style: italic;
-	background-color: #BBBBBB;
-}
-
-table a:link {color: #303030;}
-
-.utilbox {width: 18px;}
 
 caption {
 	caption-side: top;
@@ -359,6 +159,132 @@ fieldset table {
 
 fieldset th {
 	padding-left: 25px;
+}
+
+table{
+	border-spacing: 0px;
+}
+
+<!-- Elements -->
+
+#header {
+	margin-bottom: 1em;
+}
+
+#appname {
+    float: left;
+    margin: 5;
+    padding: 5px 0px;
+    font-size: 150%;
+    vertical-align: middle;
+}
+
+#banner {
+    float: left;
+    margin: 5;
+    padding: 5px 10px;
+    font-size: 150%;
+    vertical-align: middle;
+} 
+
+#language {
+    margin: 5;
+    padding: 5px 5px;
+} 
+
+#headerWrapper {
+    width:950px;
+    min-width: 950px;
+    max-width: 950px;
+    margin-right: auto;
+    margin-left: auto;
+
+    /* fix max-width incompatibility in IE6 */
+    width:expression(document.body.clientWidth > 950? "950px": "auto" );
+    
+    overflow:hidden;
+    display:block;
+}
+
+#wrapper {
+	width:950px;
+	min-width: 950px;
+	max-width: 950px;
+	margin-right: auto;
+	margin-left: auto;
+
+	/* fix max-width incompatibility in IE6 */
+	width:expression(document.body.clientWidth > 950? "950px": "auto" );
+	
+	overflow:hidden;
+	display:block;
+}
+
+/* header and footer elements */
+
+#main {
+	overflow:hidden;
+	display:box;
+}
+
+#menu {
+	height: 40px;
+	border: 1px solid;
+	border-radius: 2px;	
+}
+
+#menu a {	
+	text-decoration: none;	
+}
+
+#menu a:hover {
+	color: #648C1D;	
+}
+
+#menu .menu_content{
+	float: left;
+	margin-top: 12px;
+}
+   
+#menu .user_info {
+    float: right;
+    margin-top: 12px;
+}
+
+#content{
+	margin-top: 5px;
+}
+
+#footer {
+	background:#fff;
+	border:none;
+	margin-top:15px;
+	border-top:1px solid #999999;
+}
+
+#footer .new {
+	float:left;
+}
+
+#footer a:link {color: #7db223;}
+
+.quicklinks {
+	clear:both; 
+	padding-bottom: 15px
+}
+.quicklinks span {
+	float: right;
+}
+
+.errors {
+	color: red;
+	font-weight: bold;
+	display: block;
+	margin-left: 105px;
+}
+
+.utilbox {
+	width: 18px;
 }
 
 .table-buttons {
@@ -414,20 +340,6 @@ fieldset th {
 	width: 16px;
 }
 
-.table_no_cell{
-	background: #FFFFFF;
-	margin: 2px 0 0 0;
-	border: 0px;
-	border-collapse: collapse;
-	width: 100%;
-}
-
-.table_no_cell td, .table_no_cell tr {
-	padding: 2px;
-	border: 0px;
-	background: #FFFFFF;
-}
-
 #login{
 	margin-top: 150px;
 }
@@ -439,5 +351,15 @@ fieldset th {
 #login table{
 	margin-left: auto;
 	margin-right: auto;
-	width: 220px;		
+	width: 220px;	
+	border: 1px solid;	
+	border-radius: 5px;
+}
+
+#login table td.header{
+	border-bottom: 1px solid;		
+}
+
+#login table input{
+	margin: 2px;
 }
