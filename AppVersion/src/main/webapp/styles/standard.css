@@ -421,6 +421,7 @@ fieldset th {
 	border-collapse: collapse;
 	width: 100%;
 }
+
 .table_no_cell td, .table_no_cell tr {
 	padding: 2px;
 	border: 0px;
@@ -428,9 +429,15 @@ fieldset th {
 }
 
 #login{
-	margin-top: 10px;
+	margin-top: 150px;
+}
+
+#login h3{
+	text-align: center;
 }
 
 #login table{
+	margin-left: auto;
+	margin-right: auto;
 	width: 220px;		
 }

@@ -6,7 +6,7 @@
 	<spring:message code="home_text" var="homeText" />
 	<spring:message code="label_en_US" var="labelEnUs" />
 	<spring:message code="label_vi_VN" var="labelViVN" />
-	<spring:url value="/contacts" var="homeUrl" />
+	<spring:url value="/admin/users" var="homeUrl" />
 	<a href="${homeUrl}">${homeText}</a> | <a href="${homeUrl}?lang=en_US">${labelEnUs}</a>
 	| <a href="${homeUrl}?lang=vi_VN">${labelViVN}</a>
 </div>
