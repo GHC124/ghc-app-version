@@ -2,7 +2,9 @@
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
 	xmlns:spring="http://www.springframework.org/tags"
 	xmlns:joda="http://www.joda.org/joda/time/tags"
-	xmlns:form="http://www.springframework.org/tags/form">
+	xmlns:form="http://www.springframework.org/tags/form"
+	xmlns:html="urn:jsptagdir:/WEB-INF/tags/html" 
+	xmlns:ajax="urn:jsptagdir:/WEB-INF/tags/ajax">
 	<jsp:directive.page contentType="text/html;charset=UTF-8" />
 	<jsp:output omit-xml-declaration="yes" />
 	<!-- List -->
@@ -17,64 +19,24 @@
 		var="labelUserLastName" />	
 	<spring:message code="label_admin_user_is_active" var="labelUserIsActive" />
 	<spring:message code="label_action_save" var="labelActionSave" />
-	<!--  --> 	 	
-    <c:if test="${not empty message}">
-		<div id="message" class="${message.type}">${message.message}</div>
-	</c:if>
 	<div> 
-    	<table id="list"><tr><td></td></tr></table> 
+    	<table id="list" class="table table-bordered"><tr><td></td></tr></table> 
     	<span id="pager"></span> 
     </div> 
     <div>
     	<a href="${addUserUrl}">${labelUserNew}</a>
     	<a onclick="showNewUserDialog();">Ajax</a>
     </div>
-    <div id="userUpdate" style="display: none">
-		<form:form modelAttribute="user" id="userUpdateForm"
-			method="post">			
-			<table>
-				<tr>
-					<td><form:label path="email"> 
-					${labelUserEmail} 
-					</form:label></td>
-					<td><form:input path="email" id="email" /></td>
-				</tr>
-				<tr>
-					<td colspan="2"><form:errors path="email" cssClass="error" /></td>
-				</tr>
-				<tr>
-					<td><form:label path="firstName"> 
-					${labelUserFirstName}* 
-					</form:label></td>
-					<td><form:input path="firstName" /></td>
-				</tr>
-				<tr>
-					<td colspan="2"><form:errors path="firstName" cssClass="error" />
-					</td>
-				</tr>
-				<tr>
-					<td><form:label path="lastName"> 
-					${labelUserLastName}* 
-					</form:label></td>
-					<td><form:input path="lastName" /></td>
-				</tr>
-				<tr>
-					<td colspan="2"><form:errors path="lastName" cssClass="error" /></td>
-				</tr>				
-				<tr>
-					<td><form:label path="isActive"> 
-						${labelUserIsActive} </form:label></td>
-					<td><form:input path="isActive"
-							id="isActive" /></td>
-				</tr>					
-			</table>
-			<p />
-			<form:hidden path="version" />
-			<button type="submit"
-				class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
-				<span class="ui-button-text">${labelActionSave}</span>
-			</button>			
-		</form:form>
+    <div id="newUserDialog" style="display: none">
+    	<html:form formUrl="/admin/users?form" modelAttribute="user" id="userUpdateForm" method="POST">
+    		<html:inputField label="${labelUserEmail}" name="email"/>
+    		<html:inputField label="${labelUserFirstName}" name="firstName"/>
+    		<html:inputField label="${labelUserLastName}" name="lastName"/>
+    		<html:inputField label="${labelUserIsActive}" name="isActive"/>
+    		<form:hidden path="version" />
+    		<p/>
+    		<input name="submit" type="submit" value="${labelActionSave}" class="btn btn-primary"/>    		
+    	</html:form>    	
 	</div>
     <script type="text/javascript"> 
 	    $(function(){       
@@ -126,17 +88,8 @@
 	        });
 	    }); 
 	    function showNewUserDialog(){
-	    	$.ajax({
-	    	    type: 'GET',
-	    	    url: "${addUserUrl}",
-	    	    data:"",
-	    	    contentType: "application/json",
-	    	    success:  function(data) {  
-	    	    	var dialog = $("#newUserDialog");
-	    	        dialog.html(data);
-	    	        dialog.dialog("open");
-	    	    }
-	    	});
+	    	var dialog = $("#newUserDialog");
+	        dialog.dialog("open");
 	    }
     </script>
 </div>

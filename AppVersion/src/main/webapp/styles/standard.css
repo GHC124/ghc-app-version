@@ -1,3 +1,341 @@
+/* main elements */
+
+body,div,td {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: #666;
+}
+
+body {
+	background-color: #fff;
+	text-align: center;
+	margin: 0px;
+	padding: 0px;
+}
+
+label {
+	width:150px;
+	float:left;
+	margin-left: 5px;
+	margin-top: 5px;
+}
+
+input {
+	height:20px;
+}
+
+input, textarea, select {
+	border:1px solid #B3B3B3;
+}
+
+input.image {
+	border: none;
+	height: auto;
+	vertical-align: middle;
+}
+
+submit {
+	height:25px;
+}
+
+div {
+	text-align: left;
+}
+
+div .box {
+	display:block;
+	margin-left:105px;
+}
+
+/* menu elements*/
+
+a.menu, a.menu:link, a.menu:visited {display:block; width:150px; height:25px;} 
+	
+/* text styles */
+
+h1,h2,h3 {
+	font-family: Helvetica, sans-serif;
+	color: #7db223;
+}
+
+h1 {
+	font-size: 20px;
+	line-height: 26px;
+}
+
+h2 {
+	font-size: 18px;
+	line-height: 20px;
+}
+
+h3 {
+	font-size: 15px;
+	line-height: 21px;
+	color:#555;
+}
+
+h4 {
+	font-size: 14px;
+	line-height: 20px;
+}
+
+.errors {
+	color: red;
+	font-weight: bold;
+	display: block;
+	margin-left: 105px;
+}
+
+a {
+	text-decoration: underline;
+	font-size: 12px;
+}
+
+a img {
+	border: 0 none;
+	vertical-align: middle;
+}
+
+tr:nth-child(odd) {
+	background-color: #FFFFFF;
+}
+
+tr:nth-child(even) {
+	background-color: #EFEFEF;
+}
+
+a:link {
+	color: #7db223;
+}
+
+a:hover {
+	color: #456314;
+}
+
+a:active {
+	color: #7db223;
+}
+
+a:visited {
+	color: #7db223;
+}
+
+li {
+	padding-top: 5px;
+	text-align: left;
+}
+
+ul li {
+	margin:0 0 0.25em 0;
+	padding:0;
+}
+/* table elements */
+
+table {
+	background: #EEEEEE;
+	margin: 2px 0 0 0;
+	width: 100%;
+}
+
+table table {
+	margin: -5px 0;
+	width: 100%;
+}
+
+table td,table th {
+	padding: 0px;
+}
+
+table td form {
+	text-align:center;
+	vertical-align: middle;
+	margin: 0px;
+}
+
+table th {
+	font-size: 0.9em;
+	text-align: left;
+	font-weight: bold;
+	color: #FFF;
+	background: #999;
+}
+
+table thead {
+	font-weight: bold;
+	font-style: italic;
+	background-color: #BBBBBB;
+}
+
+table a:link {
+	color: #303030;
+}
+
+.utilbox {
+	width: 18px;
+}
+
+caption {
+	caption-side: top;
+	width: auto;
+	text-align: left;
+	font-size: 12px;
+	color: #848f73;
+	padding-bottom: 4px;
+}
+
+fieldset {
+	background: #e0e7d3;
+	padding: 8px;
+	padding-bottom: 22px;
+	border: none;
+	width: 560px;
+}
+
+fieldset label {
+	width: 70px;
+	float: left;
+	margin-top: 1.7em;
+	margin-left: 20px;
+}
+
+fieldset textfield {
+	margin: 3px;
+	height: 20px;
+	background: #e0e7d3;
+}
+
+fieldset textarea {
+	margin: 3px;
+	height: 165px;
+	background: #e0e7d3;
+}
+
+fieldset input {
+	margin: 3px;
+	height: 20px;
+	background: #e0e7d3;
+}
+
+fieldset table {
+	width: 100%;
+}
+
+fieldset th {
+	padding-left: 25px;
+}
+
+.table-buttons {
+	background-color:#fff;
+	border:none;
+}
+
+.table-buttons td {
+	border:none;
+}
+
+.submit input {
+	border: 1px solid #BBBBBB;
+	color:#777777;
+	padding:2px 7px;
+	font-size:11px;
+	text-transform:uppercase;
+	font-weight:bold;
+	height:24px;
+}
+
+.updated {
+	background:#ecf1e5;
+	font-size:11px;
+	margin-left:2px;
+	border:4px solid #ecf1e5;
+}
+
+.updated td {
+	padding:2px 8px;
+	font-size:11px;
+	color:#888888;
+}
+
+.dijitArrowButton {
+	height: 20px;
+}
+
+.dijitTextArea{
+	min-height:5.5em !important;
+	max-height:22em !important;
+	overflow-y: auto !important;
+	max-width: 175px;
+}
+
+.RichTextEditable{
+	min-height:18em !important;
+	max-height:18em !important;
+}
+
+.flag {
+	height: 11px;
+	width: 16px;
+}
+
+.table_no_cell{
+	background: #FFFFFF;
+	margin: 2px 0 0 0;
+	border: 0px;
+	border-collapse: collapse;
+	width: 100%;
+}
+.table_no_cell td, .table_no_cell tr {
+	padding: 2px;
+	border: 0px;
+	background: #FFFFFF;
+}
+
+/* Table */
+/* Internet Explorer 7: setting "separate" results in bad visuals; all other browsers work fine with either value. */
+/* If set to "separate", then this rule is also needed to prevent double vertical borders on hover:
+table.ui-styled-table tr * + th, table.ui-styled-table tr * + td  { border-left-width: 0px !important; } */
+table.ui-styled-table { border-collapse: collapse; }
+
+/* Undo the "bolding" that jQuery UI theme may cause on hovered elements
+/* Internet Explorer 7: does not support "inherit", so use a MS proprietary expression along with an Internet Explorer <= 7 targeting hack
+        to make the visuals consistent across all supported browsers */
+table.ui-styled-table td.ui-state-hover {
+    font-weight: inherit;
+    *font-weight: expression(this.parentNode.currentStyle['fontWeight']);
+}
+
+/* Initally remove bottom border for all cells. */
+table.ui-styled-table th, table.ui-styled-table td { border-bottom-width: 0px !important; }
+
+/* Hovered-row cells should show bottom border (will be highlighted) */
+table.ui-styled-table tbody tr:hover th,
+table.ui-styled-table tbody tr:hover td
+{ border-bottom-width: 1px !important; }
+
+/* Remove top border if the above row is being hovered to prevent double horizontal borders. */
+table.ui-styled-table tbody tr:hover + tr th,
+table.ui-styled-table tbody tr:hover + tr td
+{ border-top-width: 0px !important; }
+
+/* Last-row cells should always show bottom border (not necessarily highlighted if not hovered). */
+/* Internet Explorer 7, Internet Explorer 8: selector dependent on CSS classes because of no support for :last-child */
+table.ui-styled-table tbody tr.last-child th,
+table.ui-styled-table tbody tr.last-child td
+{ border-bottom-width: 1px !important; }
+
+/* Last-row cells should always show bottom border (not necessarily highlighted if not hovered). */
+/* Internet Explorer 8 BUG: if these (unsupported) selectors are added to a rule, other selectors for that rule will stop working as well! */
+/* Internet Explorer 9 and later, Firefox, Chrome: make sure the visuals are working even without the CSS classes crutch. */
+table.ui-styled-table tbody tr:last-child th,
+table.ui-styled-table tbody tr:last-child td
+{ border-bottom-width: 1px !important; }
+
+.row{
+	width: 940px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
 .bg-primary {
 	color: #fff;
 	background-color: #428bca;
@@ -18,6 +356,7 @@
 .bg-danger {
 	background-color: #f2dede;
 }
+
 div.info,div.success,div.warning,div.error {
 	border: 1px solid;
 	margin: 10px 0px;
@@ -50,16 +389,25 @@ div.error {
 	background-image: url('images/error.png');
 }
 
+.form-group{
+	padding: 5px;
+}
+
+.control-label{
+	float: left;
+	padding-top: 5px;
+}
+
 div.control-group {
 	margin-bottom: 20px; 
 }
 
 div.control-group label.control-label { 
-	width: 300px; 
+	width: 50px; 
 }
 
 div.control-group div.controls { 
-	width: 400px;
+	width: 150px;
 }
 
 div.controls span { 
@@ -100,14 +448,18 @@ span.error {
 	background-image: -webkit-linear-gradient(#04519b, #044687 60%, #033769);
 	background-image: linear-gradient(#04519b, #044687 60%, #033769);
 	background-repeat: no-repeat;
-	color: #ffffff;
-	bo
+}
+
+#login table th h3{
+	color: #ffffff;	
+	font-style: normal;
 }
 
 #login input[type="text"], #login input[type="password"]{
 	margin: 2px;
 	width: 150px;
 	margin-left: 40px;
+	padding: 5px;
 }
 
 #login .control-label{
