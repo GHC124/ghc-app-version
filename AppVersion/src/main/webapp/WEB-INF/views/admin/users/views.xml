@@ -4,5 +4,14 @@
 <tiles-definitions>
 	<definition extends="admin" name="admin/users/list">
 		<put-attribute name="body" value="/WEB-INF/views/admin/users/list.jspx" />
-	</definition>	
+	</definition>
+	<definition extends="admin" name="admin/users/show">
+		<put-attribute name="body" value="/WEB-INF/views/admin/users/show.jspx" />
+	</definition>
+	<definition extends="admin" name="admin/users/create">
+		<put-attribute name="body" value="/WEB-INF/views/admin/users/edit.jspx" />
+	</definition>		
+	<definition extends="admin" name="admin/users/update">
+		<put-attribute name="body" value="/WEB-INF/views/admin/users/edit.jspx" />
+	</definition>
 </tiles-definitions> 

@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotEmpty;
@@ -34,6 +35,7 @@ public class User extends BaseEntity {
 	
 	@NotEmpty(message = "{validation.email.NotEmpty.message}")
 	@Size(min = 1, max = 255, message = "{validation.email.Size.message}")
+	@Pattern(regexp="^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$", message="{validation.email.Pattern.message}")
 	@Column(name = "email")
 	public String getEmail() {
 		return mEmail;

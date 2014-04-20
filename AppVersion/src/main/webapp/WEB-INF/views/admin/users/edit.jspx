@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:spring="http://www.springframework.org/tags"
+	xmlns:form="http://www.springframework.org/tags/form">
+	<jsp:directive.page contentType="text/html;charset=UTF-8" />
+	<jsp:output omit-xml-declaration="yes" />
+	<spring:message code="label_admin_user_new" var="labelUserNew" />
+	<spring:message code="label_admin_user_update" var="labelUserUpdate" />
+	<spring:message code="label_admin_user_email" var="labelUserEmail" />	
+	<spring:message code="label_admin_user_first_name"
+		var="labelUserFirstName" />
+	<spring:message code="label_admin_user_last_name"
+		var="labelUserLastName" />	
+	<spring:message code="label_admin_user_is_active" var="labelUserIsActive" />
+	<spring:message code="label_action_save" var="labelActionSave" />
+	<spring:eval
+		expression="user.id == null ? labelUserNew:labelUserUpdate"
+		var="formTitle" />
+	<h1>${formTitle}</h1>
+	<div id="userUpdate">
+		<form:form modelAttribute="user" id="userUpdateForm"
+			method="post">
+			<c:if test="${not empty message}">
+				<div id="message" class="${message.type}">${message.message}</div>
+			</c:if>
+			<table>
+				<tr>
+					<td><form:label path="email"> 
+					${labelUserEmail} 
+					</form:label></td>
+					<td><form:input path="email" id="email" /></td>
+				</tr>
+				<tr>
+					<td colspan="2"><form:errors path="email" cssClass="error" /></td>
+				</tr>
+				<tr>
+					<td><form:label path="firstName"> 
+					${labelUserFirstName}* 
+					</form:label></td>
+					<td><form:input path="firstName" /></td>
+				</tr>
+				<tr>
+					<td colspan="2"><form:errors path="firstName" cssClass="error" />
+					</td>
+				</tr>
+				<tr>
+					<td><form:label path="lastName"> 
+					${labelUserLastName}* 
+					</form:label></td>
+					<td><form:input path="lastName" /></td>
+				</tr>
+				<tr>
+					<td colspan="2"><form:errors path="lastName" cssClass="error" /></td>
+				</tr>				
+				<tr>
+					<td><form:label path="isActive"> 
+						${labelUserIsActive} </form:label></td>
+					<td><form:input path="isActive"
+							id="isActive" /></td>
+				</tr>					
+			</table>
+			<p />
+			<form:hidden path="version" />
+			<button type="submit"
+				class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+				<span class="ui-button-text">${labelActionSave}</span>
+			</button>			
+		</form:form>
+	</div>
+</div>
