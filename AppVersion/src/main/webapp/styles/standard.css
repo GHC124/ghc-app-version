@@ -2,8 +2,7 @@
 
 body,div,td {
 	font-family: Arial, Helvetica, sans-serif;
-	font-size: 12px;
-	color: #666;
+	font-size: 13px;	
 }
 
 body {
@@ -49,7 +48,9 @@ div .box {
 
 /* menu elements*/
 
-a.menu, a.menu:link, a.menu:visited {display:block; width:150px; height:25px;} 
+a.menu, a.menu:link, a.menu:visited {
+	
+} 
 	
 /* text styles */
 
@@ -132,7 +133,6 @@ ul li {
 /* table elements */
 
 table {
-	background: #EEEEEE;
 	margin: 2px 0 0 0;
 	width: 100%;
 }
@@ -334,6 +334,12 @@ table.ui-styled-table tbody tr:last-child td
 	width: 940px;
 	margin-left: auto;
 	margin-right: auto;
+	min-height: 500px;
+}
+
+#content{
+	min-height: 700px;
+	margin-top: 5px;
 }
 
 .bg-primary {
@@ -389,13 +395,16 @@ div.error {
 	background-image: url('images/error.png');
 }
 
+label.error{
+	color: #D8000C;	
+}
+
 .form-group{
 	padding: 5px;
 }
 
 .control-label{
 	float: left;
-	padding-top: 5px;
 }
 
 div.control-group {
@@ -407,7 +416,7 @@ div.control-group label.control-label {
 }
 
 div.control-group div.controls { 
-	width: 150px;
+	display: inline-block;
 }
 
 div.controls span { 
@@ -464,6 +473,7 @@ span.error {
 
 #login .control-label{
 	width: 70px;
+	padding-top: 5px;
 }
 
 #header{	
@@ -475,6 +485,7 @@ span.error {
 
 #menu{
 	height: 50px;
+	color: #CCCCCC;
 }
 
 #menu .navbar{
@@ -492,6 +503,11 @@ span.error {
 
 #menu ul.navbar-nav{
 	float: left;
+}
+
+#menu ul.navbar-nav li{
+	display: inline;
+	margin-right: 5px;
 }
 
 #menu ul.navbar-right{
@@ -513,6 +529,14 @@ span.error {
 	font-weight: bold;
 }
 
+#menu ul li a.active{
+	background-color: #022f5a;
+}
+
+#menu ul li a span{
+	margin: 0 5px 0 5px;
+}
+
 #menu ul.navbar-nav li a:hover{ 
 	color: #ffffff;
 	background-color: #022f5a;
@@ -521,4 +545,16 @@ span.error {
 #menu ul.navbar-right li a{	
 	font-size:13px;
 	font-weight: normal;
+}
+
+.add-dialog{
+	padding:30px 0px 0px 35px !important
+}
+
+.add-dialog .control-label{
+	width: 100px !important;
+}
+
+.add-dialog input[type="text"]{
+	width: 200px !important;
 }

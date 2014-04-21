@@ -33,3 +33,9 @@ CREATE TABLE USER_GROUP (
   CONSTRAINT FK_USER_GROUP_1 FOREIGN KEY (USER_ID) REFERENCES USERS (ID),
   CONSTRAINT FK_USER_GROUP_2 FOREIGN KEY (GROUP_ID) REFERENCES GROUPS (ID)
 );
+
+
+CREATE OR REPLACE VIEW VIEW_USER_SUMMARY (USER_ID, EMAIL, GROUP_ID, GROUP_NAME) AS
+  select u.id as USER_ID, u.email, g.id as GROUP_ID, g.name as GROUP_NAME
+from users u left join user_group ug on u.id = ug.user_id
+left join  groups g on ug.group_id = g.id;

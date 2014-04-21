@@ -23,44 +23,40 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.ghc.appversion.domain.admin.User;
-import com.ghc.appversion.service.jpa.admin.UserService;
-import com.ghc.appversion.service.jpa.admin.UserSummaryService;
+import com.ghc.appversion.domain.admin.Group;
+import com.ghc.appversion.service.jpa.admin.GroupService;
 import com.ghc.appversion.web.form.ErrorMessage;
 import com.ghc.appversion.web.form.Message;
 import com.ghc.appversion.web.form.ValidationResponse;
 import com.ghc.appversion.web.form.admin.DataGrid;
 import com.ghc.appversion.web.util.UrlUtil;
 
-@RequestMapping("/admin/users")
+@RequestMapping("/admin/groups")
 @Controller
-public class UsersController extends AbstractAdminController {
+public class GroupsController extends AbstractAdminController {
 
 	@Autowired
-	private UserService userService;
-	
-	@Autowired
-	private UserSummaryService userSummaryService;
+	private GroupService groupService;
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String list(Model model) {
-		User user = new User();
-		model.addAttribute("user", user);
-		return "admin/users/list";
+		Group group = new Group();
+		model.addAttribute("group", group);
+		return "admin/groups/list";
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public String show(@PathVariable(value = "id") Long id, Model model) {
-		User user = userService.findById(id);
-		model.addAttribute("user", user);
+		Group group = groupService.findById(id);
+		model.addAttribute("group", group);
 
-		return "admin/users/show";
+		return "admin/groups/show";
 	}
 
 	@RequestMapping(params = "ajax", method = RequestMethod.POST)
 	@ResponseBody
 	public ValidationResponse createAjax(Model model,
-			@ModelAttribute(value = "user") @Valid User user,
+			@ModelAttribute(value = "group") @Valid Group group,
 			BindingResult result) {
 		ValidationResponse res = new ValidationResponse();
 		if (result.hasErrors()) {
@@ -74,7 +70,7 @@ public class UsersController extends AbstractAdminController {
 			res.setResult(errorMesages);
 		} else {
 			res.setStatus("SUCCESS");
-			userService.save(user);
+			groupService.save(group);
 		}
 
 		return res;
@@ -82,39 +78,39 @@ public class UsersController extends AbstractAdminController {
 
 	@RequestMapping(value = "/{id}", params = "form", method = RequestMethod.GET)
 	public String updateForm(@PathVariable(value = "id") Long id, Model model) {
-		User user = userService.findById(id);
-		model.addAttribute("user", user);		
+		Group group = groupService.findById(id);
+		model.addAttribute("group", group);
 
-		return "admin/users/update";
+		return "admin/groups/update";
 	}
 
 	@RequestMapping(value = "/{id}", params = "form", method = RequestMethod.POST)
-	public String update(@Valid User user, BindingResult bindingResult,
+	public String update(@Valid Group group, BindingResult bindingResult,
 			Model model, HttpServletRequest httpServletRequest,
 			RedirectAttributes redirectAttributes, Locale locale) {
 		if (bindingResult.hasErrors()) {
 			model.addAttribute(
 					"message",
 					new Message("error", messageSource.getMessage(
-							"admin_user_save_fail", new Object[] {}, locale)));
-			model.addAttribute("user", user);
-			return "admin/users/create";
+							"admin_group_save_fail", new Object[] {}, locale)));
+			model.addAttribute("group", group);
+			return "admin/groups/create";
 		}
 		model.asMap().clear();
 		redirectAttributes.addFlashAttribute(
 				"message",
 				new Message("success", messageSource.getMessage(
-						"admin_user_save_success", new Object[] {}, locale)));
-		userService.save(user);
+						"admin_group_save_success", new Object[] {}, locale)));
+		groupService.save(group);
 
-		return "redirect:/admin/users/"
-				+ UrlUtil.encodeUrlPathSegment(user.getId().toString(),
+		return "redirect:/admin/groups/"
+				+ UrlUtil.encodeUrlPathSegment(group.getId().toString(),
 						httpServletRequest);
 	}
 
 	@RequestMapping(value = "/listgrid", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
-	public DataGrid<User> listGrid(
+	public DataGrid<Group> listGrid(
 			@RequestParam(value = "page", required = false) Integer page,
 			@RequestParam(value = "rows", required = false) Integer rows,
 			@RequestParam(value = "sidx", required = false) String sortBy,
@@ -134,13 +130,13 @@ public class UsersController extends AbstractAdminController {
 		} else {
 			pageRequest = new PageRequest(page - 1, rows);
 		}
-		Page<User> userPage = userService.findAllByPage(pageRequest);
-		DataGrid<User> userGrid = new DataGrid<>();
-		userGrid.setCurrentPage(userPage.getNumber() + 1);
-		userGrid.setTotalPages(userPage.getTotalPages());
-		userGrid.setTotalRecords(userPage.getTotalElements());
-		userGrid.setData(userPage.getContent());
+		Page<Group> groupPage = groupService.findAllByPage(pageRequest);
+		DataGrid<Group> groupGrid = new DataGrid<>();
+		groupGrid.setCurrentPage(groupPage.getNumber() + 1);
+		groupGrid.setTotalPages(groupPage.getTotalPages());
+		groupGrid.setTotalRecords(groupPage.getTotalElements());
+		groupGrid.setData(groupPage.getContent());
 
-		return userGrid;
+		return groupGrid;
 	}
 }

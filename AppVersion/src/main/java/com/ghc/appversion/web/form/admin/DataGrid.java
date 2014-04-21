@@ -1,14 +1,20 @@
+/**
+ * DataGrid.java
+ *
+ *	
+ */
 package com.ghc.appversion.web.form.admin;
 
 import java.util.List;
 
-import com.ghc.appversion.domain.admin.User;
-
-public class UserGrid {
+/**
+ * 
+ */
+public class DataGrid<E> {
 	private int mTotalPages;
 	private int mCurrentPage;
 	private long mTotalRecords;
-	private List<User> mUserData;
+	private List<E> mData;
 	
 	public int getTotalPages() {
 		return mTotalPages;
@@ -28,10 +34,10 @@ public class UserGrid {
 	public void setTotalRecords(long totalRecords) {
 		mTotalRecords = totalRecords;
 	}
-	public List<User> getUserData() {
-		return mUserData;
+	public List<E> getData() {
+		return mData;
 	}
-	public void setUserData(List<User> userData) {
-		mUserData = userData;
+	public void setData(List<E> data) {
+		mData = data;
 	}
 }

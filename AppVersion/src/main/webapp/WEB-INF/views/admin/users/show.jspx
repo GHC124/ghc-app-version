@@ -13,12 +13,10 @@
 	<spring:message code="label_admin_user_last_name"
 		var="labelUserLastName" />	
 	<spring:message code="label_admin_user_is_active" var="labelUserIsActive" />
+	<spring:message code="label_admin_user_update" var="labelUserUpdate"/>
 	<spring:url value="/admin/users" var="editUserUrl" />
 	<h1>${labelUserInfo}</h1>
 	<div id="userInfo">
-		<c:if test="${not empty message}">
-			<div id="message" class="${message.type}">${message.message}</div>
-		</c:if>
 		<table>
 			<tr>
 				<td>${labelUserEmail}</td>
@@ -33,7 +31,7 @@
 				<td>${user.lastName}</td>
 			</tr>			
 			<tr>
-				<td>${isActive}</td>
+				<td>${labelUserIsActive}</td>
 				<td>${user.isActive}</td>
 			</tr>			
 		</table>

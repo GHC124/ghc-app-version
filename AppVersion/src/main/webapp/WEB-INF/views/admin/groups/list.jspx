@@ -8,42 +8,34 @@
 	<jsp:directive.page contentType="text/html;charset=UTF-8" />
 	<jsp:output omit-xml-declaration="yes" />
 	<!-- List -->
-	<spring:message code="label_admin_user_email" var="labelUserEmail" />	
-	<spring:message code="label_admin_user_new" var="labelUserNew"/>
-	<spring:url value="/admin/users" var="showUserUrl"/>
-	<spring:url value="/admin/users?ajax" var="addUserAjax"/>
+	<spring:message code="label_admin_group_name" var="labelGroupName" />	
+	<spring:message code="label_admin_group_new" var="labelGroupNew"/>
+	<spring:url value="/admin/groups" var="showGroupUrl"/>
+	<spring:url value="/admin/groups?ajax" var="addGroupAjax"/>
 	<!-- Add -->
-	<spring:message code="label_admin_user_first_name"
-		var="labelUserFirstName" />
-	<spring:message code="label_admin_user_last_name"
-		var="labelUserLastName" />	
-	<spring:message code="label_admin_user_is_active" var="labelUserIsActive" />
 	<spring:message code="label_action_save" var="labelActionSave" />
 	<div> 
     	<table id="list" class="table table-bordered"><tr><td></td></tr></table> 
     	<span id="pager"></span> 
     </div> 
     <div>
-    	<button id="btnNewUser" onclick="showNewUserDialog();">${labelUserNew}</button>
+    	<button id="btnNewGroup" onclick="showNewGroupDialog();">${labelGroupNew}</button>
     </div>
-    <div id="newUserDialog" title="${labelUserNew}" class="add-dialog" style="display: none">
-    	<html:form formUrl="/admin/users?ajax" modelAttribute="user" id="userUpdateForm" method="POST">
-    		<html:inputField label="${labelUserEmail}" name="email"/>
-    		<html:inputField label="${labelUserFirstName}" name="firstName"/>
-    		<html:inputField label="${labelUserLastName}" name="lastName"/>
-    		<html:inputField label="${labelUserIsActive}" name="isActive"/>
+    <div id="newGroupDialog" title="${labelGroupNew}" class="add-dialog" style="display: none">
+    	<html:form formUrl="/admin/groups?ajax" modelAttribute="group" id="groupUpdateForm" method="POST">
+    		<html:inputField label="${labelGroupName}" name="name"/>    		
     		<form:hidden path="version" />    		    		
     	</html:form>    	
 	</div>
     <script type="text/javascript"> 
 	    $(function(){       
 	      $("#list").jqGrid({ 
-	        url:'${showUserUrl}/listgrid', 
+	        url:'${showGroupUrl}/listgrid', 
 	        datatype: 'json', 
 	        mtype: 'GET', 
-	        colNames:['${labelUserEmail}'], 
+	        colNames:['${labelGroupName}'], 
 	        colModel :[  
-	          {name:'email', index:'email', width:150} 
+	          {name:'name', index:'name', width:150} 
 	        ], 
 	        jsonReader : { 
 	            root:"data", 
@@ -56,36 +48,36 @@
 	        pager: '#pager', 
 	        rowNum:10, 
 	        rowList:[10,20,30,50], 
-	        sortname: 'email', 
+	        sortname: 'name', 
 	        sortorder: 'asc', 
 	        viewrecords: true, 
 	        gridview: true, 
 	        height: 250, 
 	        width: 500, 
 	        onSelectRow: function(id){  
-	            document.location.href ="${showUserUrl}/" + id; 
+	            document.location.href ="${showGroupUrl}/" + id; 
 	        } 
 	      }); 
-	      $( "#newUserDialog" ).dialog({
+	      $( "#newGroupDialog" ).dialog({
 	          autoOpen: false,
 	          height: 350,
 	          width: 400,
 	          modal: true,
 	          buttons: {
 	            "${labelActionSave}": function() {
-	            	formAjaxSubmit("#userUpdateForm","${addUserAjax}",function(){
+	            	formAjaxSubmit("#groupUpdateForm","${addGroupAjax}",function(){
 	            		refreshJQGrid("#list");
-	            		$("#newUserDialog").dialog("close");
+	            		$("#newGroupDialog").dialog("close");
 	              	}, function(response){	              			              		
 	              	});
 	            }	            
 	          }
 	        });
 	    }); 
-	    function showNewUserDialog(){
-	    	var dialog = $("#newUserDialog");
+	    function showNewGroupDialog(){
+	    	var dialog = $("#newGroupDialog");
 	        dialog.dialog("open");
-	        resetFormData("#userUpdateForm");
+	        resetFormData("#groupUpdateForm");
 	    }
     </script>
 </div>
