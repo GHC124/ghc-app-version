@@ -135,7 +135,8 @@ public class UsersController extends AbstractAdminController {
 		} else {
 			pageRequest = new PageRequest(page - 1, rows);
 		}
-		Page<UserSummary> userPage = userSummaryService.findAllByPage(pageRequest);
+		long total = userService.count();
+		Page<UserSummary> userPage = userSummaryService.findAllByPage(pageRequest, total);
 		DataGrid<UserSummary> userGrid = new DataGrid<>();
 		userGrid.setCurrentPage(userPage.getNumber() + 1);
 		userGrid.setTotalPages(userPage.getTotalPages());

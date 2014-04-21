@@ -14,5 +14,5 @@ import com.ghc.appversion.domain.admin.UserSummary;
  * 
  */
 public interface UserSummaryService {
-	Page<UserSummary> findAllByPage(Pageable pageable);
+	Page<UserSummary> findAllByPage(Pageable pageable, long total);
 }

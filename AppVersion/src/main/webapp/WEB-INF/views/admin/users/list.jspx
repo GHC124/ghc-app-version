@@ -45,7 +45,7 @@
 		        colNames:['${labelUserEmail}', '${labelUserGroups}'], 
 		        colModel :[  
 		          {name:'email', index:'email', width:150},
-		          {name:'groupNames', index:'groupNames', width:150}
+		          {name:'groupNames', index:'groupNames', sortable:false, width:150}
 		        ], 
 		        jsonReader : { 
 		            root:"data", 
@@ -53,7 +53,7 @@
 		            total: "totalPages", 
 		            records: "totalRecords", 
 		            repeatitems: false, 
-		            id: "id" 
+		            id: "userId" 
 		        },       
 		        pager: '#pager', 
 		        rowNum:10, 

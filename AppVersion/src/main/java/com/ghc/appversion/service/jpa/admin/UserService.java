@@ -16,6 +16,8 @@ import com.ghc.appversion.domain.admin.User;
  * 
  */
 public interface UserService {
+	long count();
+	
 	List<User> findAll();
 
 	User findById(Long id);
