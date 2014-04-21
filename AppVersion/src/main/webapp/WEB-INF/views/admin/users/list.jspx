@@ -58,7 +58,7 @@
 		        pager: '#pager', 
 		        rowNum:10, 
 		        rowList:[10,20,30,50], 
-		        sortname: 'name', 
+		        sortname: 'email', 
 		        sortorder: 'asc', 
 		        viewrecords: true, 
 		        gridview: true, 
