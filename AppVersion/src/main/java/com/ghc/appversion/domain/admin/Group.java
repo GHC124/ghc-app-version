@@ -6,16 +6,12 @@
 package com.ghc.appversion.domain.admin;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
@@ -33,8 +29,7 @@ public class Group extends BaseEntity implements Serializable {
 	
 	private Long mId;
 	private String mName;
-	private Set<User> mUsers = new HashSet<>(0);
-
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
@@ -56,15 +51,4 @@ public class Group extends BaseEntity implements Serializable {
 	public void setName(String name) {
 		mName = name;
 	}
-
-	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "groups")
-	public Set<User> getUsers() {
-		return mUsers;
-	}
-
-	public void setUsers(Set<User> users) {
-		mUsers = users;
-	}
-
-	
 }

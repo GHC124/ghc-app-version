@@ -1,19 +1,12 @@
 package com.ghc.appversion.domain.admin;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
@@ -31,8 +24,7 @@ public class User extends BaseEntity implements Serializable {
 	private String mEmail;
 	private String mFirstName;
 	private String mLastName;
-	private int mIsActive = 1;
-	private Set<Group> mGroups =new HashSet<>(0);
+	private int mIsActive = 1;	
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -85,20 +77,5 @@ public class User extends BaseEntity implements Serializable {
 
 	public void setIsActive(int isActive) {
 		mIsActive = isActive;
-	}
-
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinTable(name = "user_group", joinColumns = { 
-			@JoinColumn(name = "USER_ID", nullable = false, updatable = false) }, 
-			inverseJoinColumns = { @JoinColumn(name = "GROUP_ID", 
-					nullable = false, updatable = false) })
-	public Set<Group> getGroups() {
-		return mGroups;
-	}
-
-	public void setGroups(Set<Group> groups) {
-		mGroups = groups;
-	}
-
-	
+	}	
 }

@@ -10,11 +10,11 @@ import org.apache.log4j.Logger;
 /**
  * 
  */
-public class Log {
+public class LogUtil {
 	private static boolean mEnableLog = true;
-	private static final Logger sLog = Logger.getLogger(Log.class);
+	private static final Logger sLog = Logger.getLogger(LogUtil.class);
 
-	private Log() {
+	private LogUtil() {
 
 	}
 

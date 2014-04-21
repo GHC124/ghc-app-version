@@ -16,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.ghc.appversion.domain.admin.User;
 import com.ghc.appversion.repository.jpa.admin.UserRepository;
-import com.ghc.appversion.util.Lists;
+import com.ghc.appversion.util.ListUtil;
 
 /**
  * 
@@ -36,7 +36,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	@Transactional(readOnly=true)
 	public List<User> findAll() {
-		return Lists.newArrayList(userRepository.findAll());
+		return ListUtil.newArrayList(userRepository.findAll());
 	}
 
 	/* (non-Javadoc)

@@ -10,6 +10,7 @@
 	<!-- List -->
 	<spring:message code="label_admin_user_email" var="labelUserEmail" />	
 	<spring:message code="label_admin_user_new" var="labelUserNew"/>
+	<spring:message code="label_admin_user_groups" var="labelUserGroups"/>
 	<spring:url value="/admin/users" var="showUserUrl"/>
 	<spring:url value="/admin/users?ajax" var="addUserAjax"/>
 	<!-- Add -->
@@ -37,35 +38,36 @@
 	</div>
     <script type="text/javascript"> 
 	    $(function(){       
-	      $("#list").jqGrid({ 
-	        url:'${showUserUrl}/listgrid', 
-	        datatype: 'json', 
-	        mtype: 'GET', 
-	        colNames:['${labelUserEmail}'], 
-	        colModel :[  
-	          {name:'email', index:'email', width:150} 
-	        ], 
-	        jsonReader : { 
-	            root:"data", 
-	            page: "currentPage", 
-	            total: "totalPages", 
-	            records: "totalRecords", 
-	            repeatitems: false, 
-	            id: "id" 
-	        },       
-	        pager: '#pager', 
-	        rowNum:10, 
-	        rowList:[10,20,30,50], 
-	        sortname: 'email', 
-	        sortorder: 'asc', 
-	        viewrecords: true, 
-	        gridview: true, 
-	        height: 250, 
-	        width: 500, 
-	        onSelectRow: function(id){  
-	            document.location.href ="${showUserUrl}/" + id; 
-	        } 
-	      }); 
+	    	$("#list").jqGrid({ 
+		        url:'${showUserUrl}/listgrid', 
+		        datatype: 'json', 
+		        mtype: 'GET', 
+		        colNames:['${labelUserEmail}', '${labelUserGroups}'], 
+		        colModel :[  
+		          {name:'email', index:'email', width:150},
+		          {name:'groupNames', index:'groupNames', width:150}
+		        ], 
+		        jsonReader : { 
+		            root:"data", 
+		            page: "currentPage", 
+		            total: "totalPages", 
+		            records: "totalRecords", 
+		            repeatitems: false, 
+		            id: "id" 
+		        },       
+		        pager: '#pager', 
+		        rowNum:10, 
+		        rowList:[10,20,30,50], 
+		        sortname: 'name', 
+		        sortorder: 'asc', 
+		        viewrecords: true, 
+		        gridview: true, 
+		        height: 250, 
+		        width: 500, 
+		        onSelectRow: function(id){  
+		            document.location.href ="${showUserUrl}/" + id; 
+		        } 
+		      }); 	
 	      $( "#newUserDialog" ).dialog({
 	          autoOpen: false,
 	          height: 350,

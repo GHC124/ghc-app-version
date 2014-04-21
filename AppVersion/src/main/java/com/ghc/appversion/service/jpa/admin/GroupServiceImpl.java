@@ -16,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.ghc.appversion.domain.admin.Group;
 import com.ghc.appversion.repository.jpa.admin.GroupRepository;
-import com.ghc.appversion.util.Lists;
+import com.ghc.appversion.util.ListUtil;
 
 /**
  * 
@@ -38,7 +38,7 @@ public class GroupServiceImpl implements GroupService {
 	@Override
 	@Transactional(readOnly = true)
 	public List<Group> findAll() {
-		return Lists.newArrayList(groupRepository.findAll());
+		return ListUtil.newArrayList(groupRepository.findAll());
 	}
 
 	/*

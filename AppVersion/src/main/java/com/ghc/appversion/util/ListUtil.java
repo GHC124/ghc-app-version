@@ -11,7 +11,7 @@ import java.util.Iterator;
 /**
  * 
  */
-public class Lists {
+public class ListUtil {
 	public static <T> ArrayList<T> newArrayList(Iterable<T> iterable) {
 		ArrayList<T> arrayList = new ArrayList<>();
 
