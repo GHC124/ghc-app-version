@@ -294,6 +294,11 @@ table.ui-styled-table tbody tr:last-child th,
 table.ui-styled-table tbody tr:last-child td
 { border-bottom-width: 1px !important; }
 
+/* lines for jqgrid */
+.ui-jqgrid tr.jqgrow td{
+	white-space: normal !important;
+}
+
 .row{
 	width: 940px;
 	margin-left: auto;
@@ -538,3 +543,4 @@ span.error {
 #divPagerInfo div{
 	text-align: center !important;
 }
+
