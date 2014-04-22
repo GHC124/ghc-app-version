@@ -176,7 +176,6 @@
 		    function filterGroupClick(id){	
 		    	if(id){
 		    		var checkbox = $('#filterGroup_' + id);
-		    		console.log(checkbox);
 		    		checkbox.prop('checked', !checkbox.prop('checked'));
 		    	}
 		    	refreshJQGrid("#list");		    	

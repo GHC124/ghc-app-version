@@ -15,26 +15,110 @@
 	<spring:message code="label_admin_user_is_active" var="labelUserIsActive" />
 	<spring:message code="label_admin_user_update" var="labelUserUpdate"/>
 	<spring:url value="/admin/users" var="editUserUrl" />
-	<h1>${labelUserInfo}</h1>
+	<!-- Groups -->
+	<spring:message code="label_admin_user_groups" var="labelUserGroups"/>
+	<spring:message code="label_admin_group_name" var="labelGroupName"/>
+	<spring:url value="/admin/groups" var="showGroupUrl"/>
+	
 	<div id="userInfo">
-		<table>
-			<tr>
-				<td>${labelUserEmail}</td>
-				<td>${user.email}</td>
-			</tr>
-			<tr>
-				<td>${labelUserFirstName}</td>
-				<td>${user.firstName}</td>
-			</tr>
-			<tr>
-				<td>${labelUserLastName}</td>
-				<td>${user.lastName}</td>
-			</tr>			
-			<tr>
-				<td>${labelUserIsActive}</td>
-				<td>${user.isActive}</td>
-			</tr>			
-		</table>
-		<a href="${editUserUrl}/${user.id}?form">${labelUserUpdate}</a>
+		<fieldset>
+			<legend>${labelUserInfo}</legend>
+			<table>
+				<tr>
+					<td>${labelUserEmail}</td>
+					<td>${user.email}</td>
+				</tr>
+				<tr>
+					<td>${labelUserFirstName}</td>
+					<td>${user.firstName}</td>
+				</tr>
+				<tr>
+					<td>${labelUserLastName}</td>
+					<td>${user.lastName}</td>
+				</tr>			
+				<tr>
+					<td>${labelUserIsActive}</td>
+					<td>${user.isActive}</td>
+				</tr>	
+			</table>
+			<br/><a href="${editUserUrl}/${user.id}?form">${labelUserUpdate}</a>		
+		</fieldset>
 	</div>
+	<div id="groups">
+		<fieldset>
+    		<legend>${labelUserGroups}</legend>
+	    	<div> 
+		    	<table id="listGroup" class="table table-bordered"><tr><td></td></tr></table> 
+		    	<span id="pagerGroup"></span> 
+		    </div> 
+	    </fieldset>
+	</div>
+	<script type="text/javascript">
+		$(function(){       
+			$("#listGroup").jqGrid({ 
+		        url:'${showGroupUrl}/listgrid?user', 
+		        datatype: 'json', 
+		        mtype: 'GET', 
+		        postData:{userId:'${user.ID}'},
+		        colNames:['${labelGroupName}'], 
+		        colModel :[  
+		          {name:'name', index:'name', width:150, formatter: checkboxFormatter} 
+		        ], 
+		        jsonReader : { 
+		            root:"data", 
+		            page: "currentPage", 
+		            total: "totalPages", 
+		            records: "totalRecords", 
+		            repeatitems: false, 
+		            id: "id" 
+		        },       
+		        pager: '#pagerGroup',
+		        viewrecords: true,
+		        rowNum:10, 
+		        rowList:[10,20,30,50], 
+		        sortname: 'name', 
+		        sortorder: 'asc', 
+		        gridview: true, 
+		        height: 250, 
+		        width: 300, 
+		        onSelectRow: function(id){  
+		        	filterGroupClick(id, true);
+		        }, 
+		        beforeRequest: function(){		        	
+		        },
+		        loadComplete: function() {
+			    	var grid = $("#listGroup");
+		            var pager = $(grid[0].p.pager);
+		            var pagerInfo = $(grid[0].p.pager + '_right');
+		            var divPagerInfo = pager.find("#divPagerInfo");
+		           	if(divPagerInfo.length == 0){
+		           		var tableGroup = pager.find("table.ui-pg-table:first");
+		           		divPagerInfo = $("<div></div>");
+		           		divPagerInfo.attr("id","divPagerInfo");
+		           		divPagerInfo.append(pagerInfo.html());
+			            $(tableGroup).after(divPagerInfo);
+			            pagerInfo.html("");
+			        }
+		           	$("input[type='checkbox'][id*=filterGroup_]").each(function() {
+		    			var checkbox = $(this);
+		    		    
+		    		});
+		        }
+		      }); 
+		});
+		function checkboxFormatter(cellvalue, options, rowObject) {
+	    	var s = '<div><input id="filterGroup_'+ rowObject.id +'" group="'+ rowObject.id +'" type="checkbox" onclick="filterGroupClick('+ rowObject.id +');" style="height: auto; margin: 5px"';
+	    	if(rowObject.checked){
+	    		s = s + ' checked';
+	    	}
+	    	s = s + '/><span>'+ cellvalue +'</span></div>'; 
+	    	return s;
+    	}
+	    function filterGroupClick(id, check){	
+	    	var checkbox = $('#filterGroup_' + id);
+	    	if(check){	
+	    		checkbox.prop('checked', !checkbox.prop('checked'));
+	    	}	    			    	
+	    }
+	</script>
 </div>

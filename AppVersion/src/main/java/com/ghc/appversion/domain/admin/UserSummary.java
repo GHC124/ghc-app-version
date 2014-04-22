@@ -8,7 +8,7 @@ package com.ghc.appversion.domain.admin;
 import java.io.Serializable;
 
 /**
- * 
+ * Select all users information(email, groups)
  */
 public class UserSummary implements Serializable {
 	private static final long serialVersionUID = 1L;

@@ -25,4 +25,6 @@ public interface GroupService {
 	Page<Group> findAllByPage(Pageable pageable);
 	
 	void delete(Long id);
+	
+	long count();
 }
