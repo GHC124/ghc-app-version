@@ -23,4 +23,6 @@ public interface GroupService {
 	Group save(Group Group);
 
 	Page<Group> findAllByPage(Pageable pageable);
+	
+	void delete(Long id);
 }

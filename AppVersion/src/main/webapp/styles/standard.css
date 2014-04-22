@@ -184,44 +184,8 @@ caption {
 }
 
 fieldset {
-	background: #e0e7d3;
-	padding: 8px;
-	padding-bottom: 22px;
-	border: none;
-	width: 560px;
-}
-
-fieldset label {
-	width: 70px;
-	float: left;
-	margin-top: 1.7em;
-	margin-left: 20px;
-}
-
-fieldset textfield {
-	margin: 3px;
-	height: 20px;
-	background: #e0e7d3;
-}
-
-fieldset textarea {
-	margin: 3px;
-	height: 165px;
-	background: #e0e7d3;
-}
-
-fieldset input {
-	margin: 3px;
-	height: 20px;
-	background: #e0e7d3;
-}
-
-fieldset table {
-	width: 100%;
-}
-
-fieldset th {
-	padding-left: 25px;
+	border-radius: 5px;
+	border: 1px solid #CCCCCC;
 }
 
 .table-buttons {
@@ -416,7 +380,11 @@ div.control-group label.control-label {
 }
 
 div.control-group div.controls { 
-	display: inline-block;
+	margin-left: 100px;
+}
+
+div.control-group div.controls div.div-help-inline{
+	margin-left: 5px;
 }
 
 div.controls span { 
@@ -547,7 +515,7 @@ span.error {
 	font-weight: normal;
 }
 
-.add-dialog{
+.dialog{
 	padding:30px 0px 0px 35px !important
 }
 
@@ -557,4 +525,16 @@ span.error {
 
 .add-dialog input[type="text"]{
 	width: 200px !important;
+}
+
+.delete-dialog{
+	height: 80px !important;
+}
+
+.group-dialog{
+	height: 80px !important;
+}
+
+#divPagerInfo div{
+	text-align: center !important;
 }

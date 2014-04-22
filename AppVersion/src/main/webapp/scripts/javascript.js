@@ -23,6 +23,13 @@ $(function(){
  	$('input').addClass("ui-corner-all");
 });
 
+function cancelDefaultAction(e) {
+	 var evt = e ? e:window.event;
+	 if (evt.preventDefault) evt.preventDefault();
+	 evt.returnValue = false;
+	 return false;
+}
+
 function collectFormData(fields) {
 	var data = {};
 	for (var i = 0; i < fields.length; i++) {
@@ -55,7 +62,7 @@ function formAjaxSubmit(formName, validateUrl, successMethod, failMethod){
 				var $controlGroup = $('#' + item.fieldName);
 				$controlGroup.find('.control-label').addClass('error');
 				$controlGroup.find('.help-inline').addClass('error');
-				$controlGroup.find('.help-inline').append("<br/>"+item.message);				
+				$controlGroup.find('.help-inline').append(item.message+"<br/>");				
 			}
 			failMethod(response);
 		} else {
@@ -64,6 +71,53 @@ function formAjaxSubmit(formName, validateUrl, successMethod, failMethod){
 	}, 'json');
 }
 
+/* JQGrid*/
 function refreshJQGrid(listId){
 	$(listId).setGridParam({ page: 1, datatype: "json" }).trigger('reloadGrid');
 }
+
+function getJQGridColumnIndexByName(grid,columnName) {
+    var cm = grid.jqGrid('getGridParam','colModel');
+    for(var i in cm){
+    	if (cm[i].name==columnName) {
+            return parseInt(i);
+        }
+    }
+    return -1;
+}
+
+function addDeleteAction2JQGrid(grid, valueCol, actionCol, deleteLabel, deleteAction){
+	var iCol = getJQGridColumnIndexByName(grid, actionCol) + 1;
+	var vCol = getJQGridColumnIndexByName(grid, valueCol) + 1;
+	if(iCol == -1 || vCol == -1){
+		return;
+	}
+    grid.children("tbody")
+        .children("tr.jqgrow")
+        .children("td:nth-child("+iCol+")")
+        .each(function() {
+        	$(this).html("");
+        	var divDelete = 
+        	$("<div></div>",
+                {
+                    title: deleteLabel,
+                    mouseover: function() {
+                        $(this).addClass('ui-state-hover');
+                    },
+                    mouseout: function() {
+                        $(this).removeClass('ui-state-hover');
+                    },
+                    click: function(e) {
+                    	var id = $(e.target).closest("tr.jqgrow").attr("id"); 
+                    	var value = $(e.target).closest("tr.jqgrow").children("td:nth-child("+vCol+")").html();  
+                        deleteAction(id, value);
+                        return cancelDefaultAction(e);
+                    }
+                }
+              ).css({"margin-left": "5px", float:"left"})
+               .addClass("ui-pg-div ui-inline-custom")
+               .append('<span class="ui-icon ui-icon-trash"></span>');
+             $(this).append(divDelete);
+    });
+}
+

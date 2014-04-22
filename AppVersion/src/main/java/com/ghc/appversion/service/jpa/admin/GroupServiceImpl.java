@@ -67,4 +67,11 @@ public class GroupServiceImpl implements GroupService {
 		return groupRepository.findAll(pageable);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.ghc.appversion.service.jpa.admin.GroupService#delete(java.lang.Long)
+	 */
+	@Override
+	public void delete(Long id) {
+		groupRepository.delete(id);		
+	}
 }

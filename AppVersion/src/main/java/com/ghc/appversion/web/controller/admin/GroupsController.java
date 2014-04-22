@@ -139,4 +139,10 @@ public class GroupsController extends AbstractAdminController {
 
 		return groupGrid;
 	}
+	
+	@RequestMapping(value="/{id}", params="delete", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public void deleteGroup(@PathVariable("id") Long id) {
+		groupService.delete(id);		
+	}
 }

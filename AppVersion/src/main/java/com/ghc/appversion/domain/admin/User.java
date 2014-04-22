@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
@@ -70,12 +71,13 @@ public class User extends BaseEntity implements Serializable {
 		mLastName = lastName;
 	}	
 
+	@NotNull(message="{validation.active.NotNull.message}")
 	@Column(name = "is_active")
-	public int getIsActive() {
+	public Integer getIsActive() {
 		return mIsActive;
 	}
 
-	public void setIsActive(int isActive) {
+	public void setIsActive(Integer isActive) {
 		mIsActive = isActive;
 	}	
 }

@@ -116,6 +116,7 @@ public class UsersController extends AbstractAdminController {
 	@RequestMapping(value = "/listgrid", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
 	public DataGrid<UserSummary> listGrid(
+			@RequestParam(value= "filterGroup", required = false) String filterGroup,
 			@RequestParam(value = "page", required = false) Integer page,
 			@RequestParam(value = "rows", required = false) Integer rows,
 			@RequestParam(value = "sidx", required = false) String sortBy,
@@ -136,7 +137,7 @@ public class UsersController extends AbstractAdminController {
 			pageRequest = new PageRequest(page - 1, rows);
 		}
 		long total = userService.count();
-		Page<UserSummary> userPage = userSummaryService.findAllByPage(pageRequest, total);
+		Page<UserSummary> userPage = userSummaryService.findAllByPage(pageRequest, total, filterGroup);
 		DataGrid<UserSummary> userGrid = new DataGrid<>();
 		userGrid.setCurrentPage(userPage.getNumber() + 1);
 		userGrid.setTotalPages(userPage.getTotalPages());

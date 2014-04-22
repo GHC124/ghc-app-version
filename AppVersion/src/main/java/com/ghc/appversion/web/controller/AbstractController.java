@@ -18,6 +18,7 @@ public abstract class AbstractController {
 	@InitBinder
 	protected void initBinder(WebDataBinder binder) {
 		binder.registerCustomEditor(DateTime.class, new DateTimeEditor());
+		//binder.registerCustomEditor(Integer.class, new IntegerEditor());
 	}
 
 	public class DateTimeEditor extends PropertyEditorSupport {
@@ -39,6 +40,27 @@ public abstract class AbstractController {
 			if (getValue() != null) {
 				s = org.joda.time.format.DateTimeFormat.forPattern(
 						DATE_FORMAT_PATTERN).print((DateTime) getValue());
+			}
+			return s;
+		}
+	}
+	
+	public class IntegerEditor extends PropertyEditorSupport {
+
+		@Override
+		public void setAsText(String text) throws IllegalArgumentException {
+			if (StringUtils.hasText(text)) {
+				setValue(text);
+			} else {
+				setValue(null);
+			}
+		}
+
+		@Override
+		public String getAsText() throws IllegalArgumentException {
+			String s = "";
+			if (getValue() != null && getValue() instanceof Integer) {
+				s = ((Integer)getValue()).intValue() + "";
 			}
 			return s;
 		}

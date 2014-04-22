@@ -5,10 +5,12 @@
  */
 package com.ghc.appversion.service.jpa.admin;
 
+import static com.ghc.appversion.service.jpa.admin.SQLConstants.FILTER_GROUP;
 import static com.ghc.appversion.service.jpa.admin.SQLConstants.LIMIT;
 import static com.ghc.appversion.service.jpa.admin.SQLConstants.OFFSET;
 import static com.ghc.appversion.service.jpa.admin.SQLConstants.ORDER_BY;
 import static com.ghc.appversion.service.jpa.admin.SQLConstants.SORT;
+import static com.ghc.appversion.service.jpa.admin.SQLConstants.USER_SUMMARY_FILTER_GROUP_QUERY;
 import static com.ghc.appversion.service.jpa.admin.SQLConstants.USER_SUMMARY_QUERY;
 
 import java.util.Iterator;
@@ -42,8 +44,14 @@ public class UserSummaryServiceImpl implements UserSummaryService {
 
 	@Override
 	@Transactional(readOnly = true)
-	public Page<UserSummary> findAllByPage(Pageable pageable, long total) {
+	public Page<UserSummary> findAllByPage(Pageable pageable, long total,
+			String filterGroup) {
+		// TODO use setParameter
 		String sql = USER_SUMMARY_QUERY;
+		if (filterGroup != null && !filterGroup.isEmpty()) {
+			sql = USER_SUMMARY_FILTER_GROUP_QUERY;
+			sql = sql.replace(FILTER_GROUP, filterGroup);
+		}
 		String orderBy = "";
 		String sort = "";
 		Iterator<Order> i = pageable.getSort().iterator();
@@ -52,11 +60,12 @@ public class UserSummaryServiceImpl implements UserSummaryService {
 			orderBy = order.getProperty();
 			sort = order.getDirection().name();
 		}
-		sql = sql.replace(ORDER_BY, orderBy);
+		sql = sql.replace(ORDER_BY, orderBy); 
 		sql = sql.replace(SORT, sort);
 		Query query = entityManager.createNativeQuery(sql);
 		query.setParameter(LIMIT, pageable.getPageSize());
-		query.setParameter(OFFSET, pageable.getOffset());		
+		query.setParameter(OFFSET, pageable.getOffset());
+		
 		List<UserSummary> result = JpaUtil.getResultList(query,
 				UserSummary.class);
 		Page<UserSummary> page = new PageImpl<>(result, pageable, total);
