@@ -10,7 +10,7 @@
 	<c:set var="cssGroup"
 		value="control-group ${status.error ? 'error' : '' }" />
 	<div class="${cssGroup}" id="${name}">
-		<form:label path="${name}">${label}</form:label>
+		<form:label path="${name}" class="control-label">${label}</form:label>
 		<div class="controls">
 			<form:input path="${name}" />
 			<div class="div-help-inline">
