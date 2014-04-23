@@ -24,7 +24,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.ghc.appversion.domain.admin.User;
+import com.ghc.appversion.domain.admin.UserGroup;
 import com.ghc.appversion.domain.admin.UserSummary;
+import com.ghc.appversion.service.jpa.admin.UserGroupService;
 import com.ghc.appversion.service.jpa.admin.UserService;
 import com.ghc.appversion.service.jpa.admin.UserSummaryService;
 import com.ghc.appversion.web.form.ErrorMessage;
@@ -38,10 +40,13 @@ import com.ghc.appversion.web.util.UrlUtil;
 public class UsersController extends AbstractAdminController {
 
 	@Autowired
-	private UserService userService;	
-	
+	private UserService userService;
+
 	@Autowired
 	private UserSummaryService userSummaryService;
+
+	@Autowired
+	private UserGroupService userGroupService;
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String list(Model model) {
@@ -84,7 +89,7 @@ public class UsersController extends AbstractAdminController {
 	@RequestMapping(value = "/{id}", params = "form", method = RequestMethod.GET)
 	public String updateForm(@PathVariable(value = "id") Long id, Model model) {
 		User user = userService.findById(id);
-		model.addAttribute("user", user);		
+		model.addAttribute("user", user);
 
 		return "admin/users/update";
 	}
@@ -99,7 +104,7 @@ public class UsersController extends AbstractAdminController {
 					new Message("error", messageSource.getMessage(
 							"admin_user_save_fail", new Object[] {}, locale)));
 			model.addAttribute("user", user);
-			return "admin/users/create";
+			return "admin/users/update";
 		}
 		model.asMap().clear();
 		redirectAttributes.addFlashAttribute(
@@ -116,7 +121,7 @@ public class UsersController extends AbstractAdminController {
 	@RequestMapping(value = "/listgrid", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
 	public DataGrid<UserSummary> listGrid(
-			@RequestParam(value= "filterGroup", required = false) String filterGroup,
+			@RequestParam(value = "filterGroup", required = false) String filterGroup,
 			@RequestParam(value = "page", required = false) Integer page,
 			@RequestParam(value = "rows", required = false) Integer rows,
 			@RequestParam(value = "sidx", required = false) String sortBy,
@@ -137,7 +142,8 @@ public class UsersController extends AbstractAdminController {
 			pageRequest = new PageRequest(page - 1, rows);
 		}
 		long total = userService.count();
-		Page<UserSummary> userPage = userSummaryService.findAllByPage(pageRequest, total, filterGroup);
+		Page<UserSummary> userPage = userSummaryService.findAllByPage(
+				pageRequest, total, filterGroup);
 		DataGrid<UserSummary> userGrid = new DataGrid<>();
 		userGrid.setCurrentPage(userPage.getNumber() + 1);
 		userGrid.setTotalPages(userPage.getTotalPages());
@@ -145,5 +151,24 @@ public class UsersController extends AbstractAdminController {
 		userGrid.setData(userPage.getContent());
 
 		return userGrid;
+	}
+
+	@RequestMapping(value = "/usergroup", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public Long updateUserGroup(
+			@RequestParam(value = "userId", required = false) Long userId,
+			@RequestParam(value = "groupId", required = false) Long groupId,
+			@RequestParam(value = "userGroupId", required = false) Long userGroupId) {
+		if(userId != null && groupId != null) {
+			UserGroup userGroup = new UserGroup();
+			userGroup.setUserId(userId);
+			userGroup.setGroupId(groupId);
+			UserGroup data = userGroupService.save(userGroup);
+			return data.getId();
+		}
+		else if (userGroupId != null && userGroupId > 0) {
+			userGroupService.delete(userGroupId);
+		}
+		return 0l;
 	}
 }

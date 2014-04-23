@@ -23,6 +23,7 @@ public class User extends BaseEntity implements Serializable {
 	
 	private Long mId;
 	private String mEmail;
+	private String mPassword;
 	private String mFirstName;
 	private String mLastName;
 	private int mIsActive = 1;	
@@ -55,6 +56,17 @@ public class User extends BaseEntity implements Serializable {
 	@Column(name = "first_name")
 	public String getFirstName() {
 		return mFirstName;
+	}
+
+	@NotEmpty(message = "{validation.password.NotEmpty.message}")
+	@Size(min = 3, max = 255, message = "{validation.password.Size.message}")
+	@Column(name="password")	
+	public String getPassword() {
+		return mPassword;
+	}
+
+	public void setPassword(String password) {
+		mPassword = password;
 	}
 
 	public void setFirstName(String firstName) {

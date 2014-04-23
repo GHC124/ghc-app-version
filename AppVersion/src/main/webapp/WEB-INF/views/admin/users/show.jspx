@@ -6,6 +6,7 @@
 	xmlns:joda="http://www.joda.org/joda/time/tags" version="2.0">
 	<jsp:directive.page contentType="text/html;charset=UTF-8" />
 	<jsp:output omit-xml-declaration="yes" />
+	<spring:message code="label_loading" var="labelLoading"/>
 	<spring:message code="label_admin_user_info" var="labelUserInfo" />
 	<spring:message code="label_admin_user_email" var="labelUserEmail" />	
 	<spring:message code="label_admin_user_first_name"
@@ -15,10 +16,12 @@
 	<spring:message code="label_admin_user_is_active" var="labelUserIsActive" />
 	<spring:message code="label_admin_user_update" var="labelUserUpdate"/>
 	<spring:url value="/admin/users" var="editUserUrl" />
+	<spring:url value="/admin/users/usergroup" var="editUserGroupUrl" />
 	<!-- Groups -->
 	<spring:message code="label_admin_user_groups" var="labelUserGroups"/>
 	<spring:message code="label_admin_group_name" var="labelGroupName"/>
-	<spring:url value="/admin/groups" var="showGroupUrl"/>
+	<spring:message code="admin_user_group_update_error" var="labelUserGroupUpdate"/>
+	<spring:url value="/admin/groups" var="showGroupUrl"/>	
 	
 	<div id="userInfo">
 		<fieldset>
@@ -44,22 +47,24 @@
 			<br/><a href="${editUserUrl}/${user.id}?form">${labelUserUpdate}</a>		
 		</fieldset>
 	</div>
-	<div id="groups">
+	<div id="groups" style="width: 270px;">
 		<fieldset>
-    		<legend>${labelUserGroups}</legend>
-	    	<div> 
+			<legend>${labelUserGroups}</legend>
+			<div id="groupMessage" style="display: none" class="error"><span></span></div> 
+			<div>
 		    	<table id="listGroup" class="table table-bordered"><tr><td></td></tr></table> 
 		    	<span id="pagerGroup"></span> 
-		    </div> 
+			</div>			
 	    </fieldset>
 	</div>
 	<script type="text/javascript">
-		$(function(){       
+		<![CDATA[
+		$(function(){    
 			$("#listGroup").jqGrid({ 
 		        url:'${showGroupUrl}/listgrid?user', 
 		        datatype: 'json', 
 		        mtype: 'GET', 
-		        postData:{userId:'${user.ID}'},
+		        postData:{userId:'${user.id}'},
 		        colNames:['${labelGroupName}'], 
 		        colModel :[  
 		          {name:'name', index:'name', width:150, formatter: checkboxFormatter} 
@@ -80,7 +85,7 @@
 		        sortorder: 'asc', 
 		        gridview: true, 
 		        height: 250, 
-		        width: 300, 
+		        width: 250, 
 		        onSelectRow: function(id){  
 		        	filterGroupClick(id, true);
 		        }, 
@@ -98,27 +103,50 @@
 		           		divPagerInfo.append(pagerInfo.html());
 			            $(tableGroup).after(divPagerInfo);
 			            pagerInfo.html("");
-			        }
-		           	$("input[type='checkbox'][id*=filterGroup_]").each(function() {
-		    			var checkbox = $(this);
-		    		    
-		    		});
+			            
+			            var pagerCenter = $(grid[0].p.pager + '_center');
+			           	pagerCenter.css({"width":"230px"});
+			        }		           			           	
 		        }
 		      }); 
 		});
 		function checkboxFormatter(cellvalue, options, rowObject) {
-	    	var s = '<div><input id="filterGroup_'+ rowObject.id +'" group="'+ rowObject.id +'" type="checkbox" onclick="filterGroupClick('+ rowObject.id +');" style="height: auto; margin: 5px"';
-	    	if(rowObject.checked){
-	    		s = s + ' checked';
+			var s = $('<div><input id="filterGroup_'+ rowObject.id +'" type="checkbox" onclick="filterGroupClick('+ rowObject.id +');" style="height: auto; margin: 5px"/><span>'+ cellvalue +'</span></div>');
+	    	if(rowObject.userGroupId){
+	    		var checkbox = s.find("#filterGroup_" + rowObject.id);
+	    		checkbox.attr('usergroup', rowObject.userGroupId);
+	    		checkbox.attr('checked', 'checked');
 	    	}
-	    	s = s + '/><span>'+ cellvalue +'</span></div>'; 
-	    	return s;
+	    	return s.html();
     	}
-	    function filterGroupClick(id, check){	
+	    function filterGroupClick(id, check){
+	    	var error = $("#groups").find("#groupMessage");
+    		error.css({"display": "none"});
+    		error.find('span').html('');
+    		
 	    	var checkbox = $('#filterGroup_' + id);
 	    	if(check){	
 	    		checkbox.prop('checked', !checkbox.prop('checked'));
-	    	}	    			    	
+	    	}	
+	    	var checked = checkbox.prop('checked');
+	    	var data = {};
+	    	var url = '';
+	    	if(checked){
+	    		url = '${editUserGroupUrl}' + '?userId=' + '${user.id}' + '&groupId=' + id;
+	    	}else{
+	    		url = '${editUserGroupUrl}' + '?userGroupId=' + checkbox.attr('usergroup');
+	    	}
+	    	disableInputs('#groups','checkbox');
+        	$.post(url, data, function(response) {
+        			enableInputs('#groups','checkbox');
+        		}, 'json').done(function(data){
+        			checkbox.attr('usergroup', data);        			
+        		}).fail(function(){
+       				var error = $("#groups").find("#groupMessage");
+	        		error.css({"display": "block"});
+	        		error.find('span').html('${labelUserGroupUpdate}');
+	        	});	      
 	    }
+	    ]]>
 	</script>
 </div>

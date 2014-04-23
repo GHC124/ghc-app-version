@@ -20,7 +20,7 @@ public interface GroupService {
 
 	Group findById(Long id);
 
-	Group save(Group Group);
+	Group save(Group group);
 
 	Page<Group> findAllByPage(Pageable pageable);
 	

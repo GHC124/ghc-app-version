@@ -120,7 +120,7 @@
 	    function showNewGroupDialog(){
 	    	var dialog = $("#newGroupDialog");
 	        dialog.dialog("open");
-	        resetFormData("#groupUpdateForm");
+	        removeInputError("#groupUpdateForm");
 	    }
 	    function showDeleteGroupDialog(id, value){
 	    	var dialog = $("#deleteGroupDialog");

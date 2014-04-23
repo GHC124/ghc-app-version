@@ -25,7 +25,6 @@ public interface SQLConstants {
 	/**
 	 * Select all groups and show groups that a user joined
 	 */
-	String GROUP_USER_CHECK_QUERY = "SELECT g.ID, g.NAME, if(EXISTS("+
-             "SELECT USER_ID FROM user_group WHERE USER_ID = :userId AND GROUP_ID = g.ID),true,false) " +
-             "as CHECKED FROM groups as g WHERE 1 ORDER BY :orderBy :sort LIMIT :limit OFFSET :offset";
+	String GROUP_USER_CHECK_QUERY = "SELECT g.ID, g.NAME, (SELECT ID FROM user_group WHERE USER_ID = :userId AND GROUP_ID = g.ID LIMIT 1) " +
+             "as USER_GROUP_ID FROM groups as g WHERE 1 ORDER BY :orderBy :sort LIMIT :limit OFFSET :offset";
 }

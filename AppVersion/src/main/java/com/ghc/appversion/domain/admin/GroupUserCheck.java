@@ -10,12 +10,19 @@ public class GroupUserCheck implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private Integer mId;
 	private String mName;
-	private Boolean mChecked;
+	private Integer mUserGroupId;
 
-	public GroupUserCheck(Integer id, String name, Boolean checked) {
+	public GroupUserCheck(Integer id, String name, Integer userGroupId) {
 		mId = id;
 		mName = name;
-		mChecked = checked;
+		mUserGroupId = userGroupId;
+	}
+	
+	/**
+	 * Case when userGroupId is NULL
+	 */
+	public GroupUserCheck(Integer id, String name, String userGroupId) {
+		this(id, name, 0);
 	}
 
 	public Integer getId() {
@@ -34,11 +41,11 @@ public class GroupUserCheck implements Serializable {
 		mName = name;
 	}
 
-	public Boolean getChecked() {
-		return mChecked;
+	public Integer getUserGroupId() {
+		return mUserGroupId;
 	}
 
-	public void setChecked(Boolean checked) {
-		mChecked = checked;
+	public void setUserGroupId(Integer userGroupId) {
+		mUserGroupId = userGroupId;
 	}
 }

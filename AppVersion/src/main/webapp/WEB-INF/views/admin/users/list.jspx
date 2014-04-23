@@ -8,7 +8,8 @@
 	<jsp:directive.page contentType="text/html;charset=UTF-8" />
 	<jsp:output omit-xml-declaration="yes" />
 	<!-- List -->
-	<spring:message code="label_admin_user_email" var="labelUserEmail" />	
+	<spring:message code="label_admin_user_email" var="labelUserEmail" />
+	<spring:message code="label_admin_user_password" var="labelUserPassword"/>	
 	<spring:message code="label_admin_user_new" var="labelUserNew"/>
 	<spring:message code="label_admin_user_groups" var="labelUserGroups"/>
 	<spring:message code="label_admin_group_filter" var="labelGroupFilter"/>
@@ -21,6 +22,9 @@
 		var="labelUserFirstName" />
 	<spring:message code="label_admin_user_last_name"
 		var="labelUserLastName" />	
+	<spring:message code="label_admin_user_confirm_password" var="labelConfirmPassword"/>
+	<spring:message code="validation.password.NotMatch.message" var="messageConfirmPasswordNotMatch"/>
+	<spring:message code="validation.password.NotEmpty.message" var="messagePasswordRequire"/>
 	<spring:message code="label_admin_user_is_active" var="labelUserIsActive" />
 	<spring:message code="label_action_save" var="labelActionSave" />
 	<div style="float:left">
@@ -44,7 +48,17 @@
     <div id="newUserDialog" title="${labelUserNew}" class="dialog add-dialog" style="display: none">
     	<html:form formUrl="/admin/users?ajax" modelAttribute="user" id="userUpdateForm" method="POST">
     		<html:inputField label="${labelUserEmail}" name="email"/>
-    		<html:inputField label="${labelUserFirstName}" name="firstName"/>
+    		<html:passwordField label="${labelUserPassword}" name="password"/>
+    		<div class="control-group" id="divConfirmPassword">
+				<label for="confirmPassword" class="control-label">${labelConfirmPassword}</label>
+				<div class="controls">
+					<input type="password" id="confirmPassword" name="confirmPassword"/>
+					<div class="div-help-inline">
+						<span class="help-inline">${messageConfirmPasswordNotMatch}</span>
+					</div>
+				</div>
+			</div>
+    		<html:inputField label="${labelUserFirstName}" name="firstName"/>    		
     		<html:inputField label="${labelUserLastName}" name="lastName"/>
     		<html:inputField label="${labelUserIsActive}" name="isActive"/>
     		<form:hidden path="version" />    		    		
@@ -78,7 +92,7 @@
 			    sortorder: 'asc', 
 			    viewrecords: true, 
 			    gridview: true, 
-			    height: 450, 
+			    height: 500, 
 			    width: 600, 
 			    onSelectRow: function(id){  
 			        document.location.href ="${showUserUrl}/" + id; 
@@ -142,17 +156,39 @@
 		      }); 
 			 $( "#newUserDialog" ).dialog({
 			      autoOpen: false,
-			      height: 350,
+			      height: 400,
 			      width: 400,
 			      modal: true,
 			      resizable: false,
 			      buttons: {
 			        "${labelActionSave}": function() {
-			        	formAjaxSubmit("#userUpdateForm","${addUserAjax}",function(){
-			        		refreshJQGrid("#list");
-			        		$("#newUserDialog").dialog("close");
-			          	}, function(response){	              			              		
-			          	});
+			        	var valid = false;
+			        	var passwordControl = $('#div_password');
+			        	var confirmPasswordControl = $('#div_confirmPassword');
+			        	var password = $('#password');
+			        	var confirmPassword = $('#confirmPassword');
+			        	console.log(password.val());
+			        	removeInputError('#div_password');	
+			        	if(password.val().length == 0){
+			        		addInputError('#div_password', '${messagePasswordRequire}');			        		
+			        	}else{
+			        		var password1 = password.val();
+			        		var password2 = confirmPassword.val();
+			        		console.log(password1);
+			        		console.log(password2);
+			        		if(password1 === password2){
+			        			valid = true;
+			        		}else{
+			        			addInputError('#div_confirmPassword', '${messageConfirmPasswordNotMatch}');			        			
+			        		}
+			        	}
+			        	if(valid){
+				        	formAjaxSubmit("#userUpdateForm","${addUserAjax}",function(){
+				        		refreshJQGrid("#list");
+				        		$("#newUserDialog").dialog("close");
+				          	}, function(response){	              			              		
+				          	});
+			        	}
 			        }	            
 			      }
 			    });
@@ -183,7 +219,7 @@
 			function showNewUserDialog(){
 				var dialog = $("#newUserDialog");
 			    dialog.dialog("open");
-			    resetFormData("#userUpdateForm");
+			    removeInputError("#userUpdateForm");
 			}
     </script>
 </div>

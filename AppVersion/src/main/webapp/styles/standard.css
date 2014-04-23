@@ -16,7 +16,6 @@ label {
 	width:150px;
 	float:left;
 	margin-left: 5px;
-	margin-top: 5px;
 }
 
 input {
@@ -528,7 +527,7 @@ span.error {
 	width: 100px !important;
 }
 
-.add-dialog input[type="text"]{
+.add-dialog input[type="text"], .add-dialog input[type="password"]{
 	width: 200px !important;
 }
 
@@ -542,5 +541,9 @@ span.error {
 
 #divPagerInfo div{
 	text-align: center !important;
+}
+
+#userInfo{
+	width: 450px;
 }
 

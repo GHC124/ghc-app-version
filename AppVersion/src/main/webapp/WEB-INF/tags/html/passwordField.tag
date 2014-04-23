@@ -12,7 +12,7 @@
 	<div class="${cssGroup}" id="div_${name}">
 		<form:label path="${name}" class="control-label">${label}</form:label>
 		<div class="controls">
-			<form:input path="${name}" />
+			<form:password path="${name}"/>
 			<div class="div-help-inline">
 				<span class="help-inline">${status.errorMessage}</span>
 			</div>

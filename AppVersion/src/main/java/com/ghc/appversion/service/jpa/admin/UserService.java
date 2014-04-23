@@ -22,7 +22,7 @@ public interface UserService {
 
 	User findById(Long id);
 
-	User save(User User);
+	User save(User user);
 
 	Page<User> findAllByPage(Pageable pageable);
 }

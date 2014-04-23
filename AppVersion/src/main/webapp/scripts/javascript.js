@@ -38,8 +38,15 @@ function collectFormData(fields) {
 	}
 	return data;
 }
-	
-function resetFormData(formName){
+
+function addInputError(fieldName, message){
+	var $controlGroup = $(fieldName);
+	$controlGroup.find('.control-label').addClass('error');
+	$controlGroup.find('.help-inline').addClass('error');
+	$controlGroup.find('.help-inline').append(message);			
+}
+
+function removeInputError(formName){
 	var $form = $(formName);	
 	$form.find('.control-label').removeClass('error');
 	$form.find('.help-inline').removeClass('error');
@@ -52,23 +59,35 @@ function formAjaxSubmit(formName, validateUrl, successMethod, failMethod){
 	var $inputs = $form.find('input');
 	var data = collectFormData($inputs);				
 	$.post(validateUrl, data, function(response) {
-		$form.find('.control-label').removeClass('error');
-		$form.find('.help-inline').removeClass('error');
-		$form.find('.help-inline').empty();
-		$form.find('.alert').remove();					
+		removeInputError(formName);
 		if (response.status == 'FAIL') {
 			for (var i = 0; i < response.result.length; i++) {
 				var item = response.result[i];
-				var $controlGroup = $('#' + item.fieldName);
-				$controlGroup.find('.control-label').addClass('error');
-				$controlGroup.find('.help-inline').addClass('error');
-				$controlGroup.find('.help-inline').append(item.message+"<br/>");				
+				addInputError("#div_" + item.fieldName, item.message+"<br/>");								
 			}
 			failMethod(response);
 		} else {
 			successMethod();
 		}
 	}, 'json');
+}
+
+function disableInputs(formName, type){
+	var $form = $(formName);
+	var $inputs = $form.find('input[type="' + type + '"]');
+	for (var i = 0; i < $inputs.length; i++) {
+		var $item = $($inputs[i]);
+		$item.attr("disabled", "disabled"); 
+	}
+}
+
+function enableInputs(formName, type){
+	var $form = $(formName);
+	var $inputs = $form.find('input[type="' + type + '"]');
+	for (var i = 0; i < $inputs.length; i++) {
+		var $item = $($inputs[i]);
+		$item.removeAttr("disabled"); 
+	}
 }
 
 /* JQGrid*/
